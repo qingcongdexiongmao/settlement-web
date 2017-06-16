@@ -1,4 +1,4 @@
-package com.gomefinance.properties;
+package com.test.web.properties;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
@@ -14,6 +14,9 @@ public class TestProperties {
 
     @Value("${FIND_COUNT_SQL}")
     public String FIND_COUNT_SQL;
+
+    @Value("${FIND_LIST_SQL}")
+    public String FIND_LIST_SQL;
 
 
 }

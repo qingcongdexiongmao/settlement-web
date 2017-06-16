@@ -1,4 +1,4 @@
-package com.gomefinance.web.config;
+package com.test.web.config;
 
 import org.springframework.boot.autoconfigure.jdbc.DataSourceBuilder;
 import org.springframework.boot.context.properties.ConfigurationProperties;

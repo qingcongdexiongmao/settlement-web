@@ -1,4 +1,4 @@
-package com.gomefinance.web.util;
+package com.test.web.util;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,7 +22,7 @@ import java.util.Map;
  * 根据SELECT-SQL返回的数据自动封装实体对象
  * 其实傻了,直接使用
  * List<Map<String, Object>> list = getJdbcTemplate().queryForList("select * from player")
- * 在使用JSON分装MAP,在把JSON反转为VO,就可以轻松解决问题了。但是也有诸多不灵活之处
+ * 在使用JSON封装MAP,在把JSON反转为VO,就可以轻松解决问题了。但是也有诸多不灵活之处
  */
 public class ClassRowMapper<T> implements RowMapper<T> {
     private Class<T> clazz;

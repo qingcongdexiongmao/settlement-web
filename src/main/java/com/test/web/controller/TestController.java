@@ -1,6 +1,6 @@
-package com.gomefinance.web.controller;
+package com.test.web.controller;
 
-import com.gomefinance.web.service.TestService;
+import com.test.web.service.TestService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,5 +20,10 @@ public class TestController {
     @RequestMapping("/testStr")
     public String testCountStr(){
         return this.testService.find();
+    }
+
+    @RequestMapping("/testListStr")
+    public String testListStr(){
+        return this.testService.findList();
     }
 }
