@@ -1,5 +1,6 @@
 package com.test.web.service;
 
+import com.test.web.properties.TaskOneProperties;
 import com.test.web.properties.TestProperties;
 import com.google.gson.Gson;
 import org.slf4j.Logger;
@@ -22,11 +23,12 @@ public class TestService {
 
     private Gson gson = new Gson();
 
-    @Autowired
-    private TestProperties testProperties;
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
+
+    @Autowired
+    private TestProperties testProperties;
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -38,6 +40,12 @@ public class TestService {
     public String findList(){
         logger.error("日志输出");
         List<Map<String, Object>> list = this.jdbcTemplate.queryForList(this.testProperties.FIND_LIST_SQL);
+        logger.info("已执行完毕");
         return this.gson.toJson(list);
+
+    }
+
+    public List<Map<String, Object>> findMap(){
+        return this.jdbcTemplate.queryForList(this.testProperties.FIND_LIST_SQL);
     }
 }
