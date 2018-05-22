@@ -54,6 +54,13 @@
 			<artifactId>gson</artifactId>
 			<version>2.2.4</version>
 		</dependency>
+
+	<!--spark-->
+		<!--<dependency>-->
+			<!--<groupId>org.apache.spark</groupId>-->
+			<!--<artifactId>spark-core_2.11</artifactId>-->
+			<!--<version>2.2.0</version>-->
+		<!--</dependency>-->
 	</dependencies>
 
 	<build>
