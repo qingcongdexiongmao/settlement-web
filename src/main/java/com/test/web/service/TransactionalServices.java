@@ -22,7 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
  *    2️⃣ 老事务回滚，新事务不回滚
  * 8、无@Transactional 方法中调用本类@Transactional方法，事务不生效
  * 9、无@Transactional 方法中接口调用本类@Transactional方法，事务生效。与1呼应
- * 10、Transactional是否生效, 仅取决于是否加载于接口方法, 并且是否通过方法调用(而不是本类调用)。默认RuntimeException回滚
+ * 10、Transactional是否生效, 仅取决于是否加载于接口方法, 并且是否通过方法调用(而不是本类调用)。默认RuntimeException回滚,Exception默认不回滚
  * 11、通过 元素的 "proxy-target-class" 属性值来控制是基于接口的还是基于类的代理被创建。
  *      如果 "proxy-target-class" 属值被设置为 "true"，那么基于类的代理将起作用（这时需要CGLIB库cglib.jar在CLASSPATH中）。
  *      如果 "proxy-target-class" 属值被设置为 "false" 或者这个属性被省略，那么标准的JDK基于接口的代理将起作用
@@ -128,6 +128,7 @@ public class TransactionalServices {
      */
     @Transactional
     public void testOutPublicTrToNewSerTr(String setp){
+
         logger.info("有事务且方法公开，外部调用。调用外部新事务公开方法-事务开始");
         this.testPrivate();
         this.transactionalNewServices.testPublicNewTr(setp);
@@ -150,5 +151,36 @@ public class TransactionalServices {
         logger.info("有事务且方法公开，外部调用。调用外部无事务公开方法-事务结束");
         throw new RuntimeException("new testOutPublicTrToNewSerTr");
     }
+
+    /**
+     *有事务且方法公开，外部调用。通过接口调用外部有事务非公开方法
+     * 接口调用外部有事务非公开方法，新事务不生效
+     */
+    @Transactional
+    public void testPublicToNoPubNewTr(){
+        logger.info("有事务且方法公开，外部调用。通过接口调用外部有事务非公开方法-事务开始");
+        this.testPrivate();
+        this.transactionalNewServices.testNoPublicNewTr();
+        logger.info("有事务且方法公开，外部调用。通过接口调用外部有事务非公开方法-事务结束");
+        throw new RuntimeException("new testPublicToNoPubNewTr");
+    }
+
+    /**
+     * 有事务且方法公开，外部调用。通过接口调用外部嵌套事务公开方法
+     * 口调用外部嵌套事务，只有老事务提交后，新事务才会提交。老事务回滚，新事务一并回滚
+     * 新事务回滚若抛出异常，那么老是事务也会回滚，说实话try可以规避的问题，不知道用NESTED有啥用
+     */
+    @Transactional
+    public void testPublicToPubNesTr(String setp){
+        logger.info("有事务且方法公开，外部调用。通过接口调用外部嵌套事务公开方法-事务开始");
+        this.testPrivate();
+        this.transactionalNewServices.testPublicNesTr(setp);
+        logger.info("有事务且方法公开，外部调用。通过接口调用外部嵌套事务公开方法-事务结束");
+        if(setp.equals("1"))
+            throw new RuntimeException("new testPublicToNoPubNewTr");
+
+    }
+
+
 
 }

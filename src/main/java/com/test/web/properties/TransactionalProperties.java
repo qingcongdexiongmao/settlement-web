@@ -25,4 +25,7 @@ public class TransactionalProperties {
     @Value("${UPDATE_TESTPUBLICNEWTR_SQL}")
     public String UPDATE_TESTPUBLICNEWTR_SQL;
 
+    @Value("${UPDATE_TESTPUBLICNESTR_SQL}")
+    public String UPDATE_TESTPUBLICNESTR_SQL;
+
 }

@@ -31,6 +31,10 @@ public class TransactionalController {
             this.transactionalServices.testOutPublicTrToNewSerTr(setp);
         }else if(num.equals("7")){
             this.transactionalServices.testOutPublicTrToNewSerNoTr();
+        }else if(num.equals("8")){
+            this.transactionalServices.testPublicToNoPubNewTr();
+        }else if(num.equals("9")){
+            this.transactionalServices.testPublicToPubNesTr(setp);
         }
 
     }

@@ -45,4 +45,26 @@ public class TransactionalNewServices {
         logger.info("新开事务公开方法-事务结束");
     }
 
+    /**
+     * 有事务不公开方法
+     */
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    void testNoPublicNewTr(){
+        logger.info("新开事务公开方法-事务开始");
+        this.jdbcTemplate.update(this.transactionalProperties.UPDATE_TESTPUBLICNEWTR_SQL);
+        logger.info("新开事务公开方法-事务结束");
+    }
+
+    /**
+     * 嵌套事务公开方法
+     */
+    @Transactional(propagation = Propagation.NESTED)
+    public void testPublicNesTr(String setp){
+        logger.info("新开事务公开方法-事务开始");
+        this.jdbcTemplate.update(this.transactionalProperties.UPDATE_TESTPUBLICNESTR_SQL);
+        logger.info("新开事务公开方法-事务结束");
+        if(setp.equals("2")){
+            throw new RuntimeException("new testPublicToNoPubNewTr");
+        }
+    }
 }
